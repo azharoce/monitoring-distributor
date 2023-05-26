@@ -13,4 +13,10 @@ class DashboardController extends Controller
             'user' => 'dadas'
         ]);
     }
+    public function users()
+    {
+        return view('users.user', [
+            'user' => 'dadas'
+        ]);
+    }
 }

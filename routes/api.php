@@ -31,8 +31,17 @@ Route::group([
     Route::post('refresh', [App\Http\Controllers\AuthController::class, 'refresh']);
     Route::post('me', [App\Http\Controllers\AuthController::class, 'me']);
 });
-Route::any('{any}', function(){
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'users'
+], function ($router) {
+    Route::get('data', [App\Http\Controllers\Api\MemberController::class, 'data']);
+});
+
+Route::any('{any}', function () {
     return response()->json([
-    	'status' => 'error',
-        'message' => 'Resource not found'], 404);
+        'status' => 'error',
+        'message' => 'Resource not found'
+    ], 404);
 })->where('any', '.*');
