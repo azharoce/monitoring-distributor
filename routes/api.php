@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\PermissionsController;
+use App\Http\Controllers\Api\MemberController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,25 +21,40 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::post('register', [App\Http\Controllers\AuthController::class, 'register']);
-Route::get('product', [App\Http\Controllers\ProductController::class, 'sendSlack']);
+// Route::post('register', [AuthController::class, 'register']);
+// Route::get('product', [ProductController::class, 'sendSlack']);
 
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
-    Route::post('register', [App\Http\Controllers\AuthController::class, 'register']);
-    Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
-    Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout']);
-    Route::post('refresh', [App\Http\Controllers\AuthController::class, 'refresh']);
-    Route::post('me', [App\Http\Controllers\AuthController::class, 'me']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
 });
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'jwt.verify',
     'prefix' => 'users'
 ], function ($router) {
-    Route::get('data', [App\Http\Controllers\Api\MemberController::class, 'data']);
+    Route::get('data', [MemberController::class, 'data']);
+});
+
+Route::group([
+    'middleware' => 'jwt.verify',
+    'prefix' => 'role'
+], function ($router) {
+    Route::get('data', [RoleController::class, 'data']);
+    Route::post('create', [RoleController::class, 'store']);
+});
+
+Route::group([
+    'middleware' => 'jwt.verify',
+    'prefix' => 'permissions'
+], function ($router) {
+    Route::get('data', [PermissionsController::class, 'index']);
+    Route::post('create', [PermissionsController::class, 'store']);
 });
 
 Route::any('{any}', function () {

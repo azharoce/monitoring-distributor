@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 use App\Models\User;
-
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -101,22 +101,18 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // notification("Gagal Register",$validator->errors()->toArray());
-        // // print_r( $validator->errors()->toArray());
-        // die();
-
-        // if($validator->fails()){
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'success' => false,
-        //         'error' =>
-        //         $validator->errors()->toArray()
-        //     ], 400);
-        // }
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'success' => false,
+                'error' =>
+                $validator->errors()->toArray(0)
+            ], 400);
+        }
         try {
             $user = User::create([
                 'name' => $request->input('name'),
@@ -129,7 +125,7 @@ class AuthController extends Controller
                 'user' => $user
             ]);
         } catch (\Exception $e) {
-            notification("Failed Register", $e);
+            // notification("Failed Register", $e);
             return response()->json([
                 'message' => 'User failed created.',
             ], 400);
