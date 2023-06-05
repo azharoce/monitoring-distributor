@@ -4,7 +4,7 @@
         <!--begin::Products-->
         <div class="card card-flush" data-select2-id="select2-data-125-bg6t">
             <!--begin::Card header-->
-            <div class="card-header align-items-center py-5 gap-2 gap-md-5" data-select2-id="select2-data-124-ak03">
+            {{-- <div class="card-header align-items-center py-5 gap-2 gap-md-5" data-select2-id="select2-data-124-ak03">
                 <!--begin::Card title-->
                 <div class="card-title">
                     <!--begin::Search-->
@@ -55,7 +55,7 @@
                     <!--end::Add product-->
                 </div>
                 <!--end::Card toolbar-->
-            </div>
+            </div> --}}
             <!--end::Card header-->
 
             <!--begin::Card body-->
@@ -78,7 +78,7 @@
                    
                       </table> --}}
                         <!--begin::Wrapper-->
-                        <div class="d-flex flex-stack mb-5">
+                        {{-- <div class="d-flex flex-stack mb-5">
                             <!--begin::Search-->
                             <div class="d-flex align-items-center position-relative my-1">
                                 <i class="ki-duotone ki-magnifier fs-1 position-absolute ms-6"><span
@@ -123,7 +123,7 @@
                                 </button>
                             </div>
                             <!--end::Group actions-->
-                        </div>
+                        </div> --}}
                         <!--end::Wrapper-->
 
                         <!--begin::Datatable-->
@@ -131,18 +131,12 @@
                             <thead>
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="w-10px pe-2">
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                            <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                                data-kt-check-target="#kt_datatable_example_1 .form-check-input"
-                                                value="1" />
-                                        </div>
-                                    </th>
+                                        No
+                                     </th>
                                     <th>Customer Name</th>
                                     <th>Email</th>
-                                    {{-- <th>Company</th>
-                                    <th>Payment Method</th>
-                                    <th>Created Date</th> --}}
-                                    {{-- <th class="text-end min-w-100px">Actions</th> --}}
+                                    <th>Alert</th>
+                                    <th class="min-w-100px">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-semibold">

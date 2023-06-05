@@ -42,11 +42,12 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'jwt.verify',
+    // 'middleware' => 'jwt.verify',
     'prefix' => 'role'
 ], function ($router) {
     Route::get('data', [RoleController::class, 'data']);
     Route::post('create', [RoleController::class, 'store']);
+    Route::get('insert', [RoleController::class, 'insertLoop']);
 });
 
 Route::group([
